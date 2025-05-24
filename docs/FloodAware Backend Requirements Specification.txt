@@ -1,0 +1,134 @@
+Backend Requirements Specification
+Project: FloodAware GH
+Date: 2025-05-23
+Prepared by: Derek Otchere Asamoah-Amoyaw
+Version: 1.0
+
+1. Architecture Overview
+Architecture Type: Cloud-based RESTful API with Offline Sync Support
+Core Components:
+
+Authentication & User Management
+
+Flood Data API
+
+Alerts & Notification Engine
+
+AI Risk Analysis Engine
+
+Weather API Integration
+
+Admin & Moderator Dashboard
+
+Hosting Options: Firebase (for speed), AWS (for scale), or Azure (if leveraging Microsoft grants)
+
+2. Key Functional Modules
+2.1. User Authentication
+Email/Phone login (OTP verification or password)
+
+OAuth2 support for Google sign-in
+
+Token-based session management (JWT)
+
+2.2. Flood Data Management API
+POST /flood-tag: Create flood report
+
+GET /flood-tags: Get recent or nearby tags
+
+GET /tag/{id}: Retrieve tag detail
+
+POST /tag/verify: Moderator flag/confirm validity
+
+Water levels stored as integers + labels (0 = dry, 1 = ankle, …, 5 = overhead)
+
+2.3. AI & Weather Prediction Engine
+Pulls 3-day rainfall forecast via API (e.g., OpenWeatherMap or Meteo Ghana)
+
+Combines local tags and historical data to generate a flood risk score (0-100)
+
+Stores prediction logs per district and time window
+
+Auto-triggers alert push if score > threshold (e.g., 70)
+
+2.4. Notifications System
+Push alerts via Firebase Cloud Messaging
+
+rain-start, flood-risk-high, update-checklist
+
+Custom alert preferences per user
+
+2.5. Offline Sync Support
+Use local SQLite for offline storage on device
+
+Sync engine checks:
+
+POST /sync/upload → Uploads pending data
+
+GET /sync/download → Pulls updated tags and tips
+
+2.6. Admin & Moderator Tools
+Web-based dashboard with:
+
+Tag validation interface
+
+Heatmap visualization
+
+User reports export
+
+Alerts broadcast control
+
+3. Database Design (Simplified)
+Tables/Collections:
+
+Users: ID, phone/email, location, preferences
+
+FloodTags: ID, userID, GPS, depth, imageURL, notes, verified
+
+WeatherLogs: ID, district, forecastedRainMM, predictedRisk
+
+Alerts: ID, userID, type, message, status, timestamp
+
+Checklists: ID, title, content, tagLevel
+
+Database Type:
+
+Firestore (NoSQL - fast + real-time)
+
+Or PostgreSQL (for advanced query support)
+
+4. Security Requirements
+HTTPS for all traffic
+
+Firebase Authentication or AWS Cognito
+
+Role-based access (user, admin, moderator)
+
+Rate limiting (to prevent abuse)
+
+Encrypted image & location data at rest
+
+5. Performance & Scalability
+Designed to handle:
+
+Up to 1 million flood tags
+
+100K concurrent users during alert times
+
+CDN for image hosting
+
+Caching frequently accessed data (e.g., alerts, maps)
+
+6. Third-Party Services
+Service	Purpose
+Firebase / AWS	Hosting, storage, auth
+OpenWeatherMap API	Rainfall and weather data
+Google Maps API	Geolocation + visualization
+TensorFlow Lite	Local model inference (future)
+
+7. Logging & Monitoring
+Error tracking: Sentry or Firebase Crashlytics
+
+Real-time logs: CloudWatch / Firebase Logs
+
+Audit logs for admin actions
+

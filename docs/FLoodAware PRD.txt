@@ -1,0 +1,116 @@
+Here’s a **Product Requirements Document (PRD)** for your proposed app concept for flood-risk tagging and awareness in Ghana:
+
+---
+
+**Product Requirements Document (PRD)**
+**Product Name:** FloodAware GH
+**Prepared by:** \[Terry]
+**Date:** \[2025-05-23]
+**Version:** 1.0
+
+---
+
+### **1. Objective**
+
+FloodAware GH is a mobile app designed to empower residents of Ghana to tag and monitor flood-prone areas, measure flood levels in a user-friendly way, and receive AI-driven early warnings and preparedness tips. The app leverages local user data, AI models, and weather APIs to promote community-level disaster awareness and response during the rainy season.
+
+---
+
+### **2. Goals**
+
+* Enable users to **tag flood-prone areas** using geolocation and photo uploads.
+* Allow users to **easily log water levels** using visual guides and phone sensors.
+* Use **AI and weather data** to predict flood risks and **send alerts** before the rainy season.
+* Provide **actionable safety tips** and preparation checklists based on risk level.
+* Support **offline data capture**, syncing when online.
+
+---
+
+### **3. Key Features**
+
+#### 3.1. User Account
+
+* Sign up/login (email, phone number, or Google)
+* Profile includes location, flood history, and preferences
+
+#### 3.2. Flood-Prone Area Tagging
+
+* Users tap a “Tag Flood Area” button
+* Map view opens with GPS pin
+* Option to add photos, water depth (with slider), and comments
+* Tags reviewed by moderators or via AI validation
+
+#### 3.3. Water Level Measurement
+
+* User selects between:
+
+  * Slider (ankle, knee, waist, chest, over head)
+  * AR camera overlay to match height level on a wall/road object
+* Option to input date, time, and location manually if offline
+
+#### 3.4. Weather and Flood Alerts
+
+* Integration with Weather Channel or Meteo Ghana API
+* AI predicts flood likelihood using:
+
+  * Recent user-submitted data
+  * Weather forecasts
+  * Topographical trends (if available)
+* Push notifications 3-5 days before heavy rain events
+
+#### 3.5. Preparation and Response Tips
+
+* Display safety checklists (e.g., move valuables, clean drains)
+* Personalized suggestions based on user’s flood tag and AI analysis
+
+#### 3.6. Community Map & Reports
+
+* Heatmap of high-risk areas
+* Users can view tagged areas near them
+* Verified alerts highlighted in red
+
+---
+
+### **4. Technical Requirements**
+
+* **Platforms:** Android (priority), iOS
+* **Back-End:** Firebase or AWS Amplify
+* **AI/ML:** TensorFlow Lite / PyTorch Mobile (local + cloud inference)
+* **Weather API:** Meteo Ghana, OpenWeatherMap, or Weather Channel API
+* **Mapping:** Google Maps API or OpenStreetMap
+* **Offline Capability:** Local storage, auto-sync when connected
+
+---
+
+### **5. Non-Functional Requirements**
+
+* **Accessibility:** Local language support (Akan, Ewe, Ga, Hausa)
+* **Security:** OTP verification, secure storage of location data
+* **Performance:** Sync under 5MB of data within 10 seconds on 3G
+* **Scalability:** Handle up to 1M users and 500K flood reports
+* **Reliability:** 99.5% uptime for alerts and sync
+
+---
+
+### **6. Metrics for Success**
+
+* 10,000+ downloads within first 6 months
+* > 80% of users opt in to flood alerts
+* At least 500 community tags in first 3 months
+* 90% of AI alerts are timely and actionable
+* Positive feedback from at least 70% of surveyed users
+
+---
+
+### **7. Risks and Assumptions**
+
+| **Risk**                                  | **Mitigation**                                         |
+| ----------------------------------------- | ------------------------------------------------------ |
+| Inaccurate tagging by users               | Use AI and moderator review                            |
+| Low smartphone penetration in rural areas | Optimize for low-end Androids, explore SMS integration |
+| Data privacy concerns                     | Provide opt-out and clear privacy terms                |
+| Limited weather data granularity          | Use community input to improve AI prediction accuracy  |
+
+---
+
+Would you like this exported as a Word doc or PDF, or need it turned into a pitch deck or proposal?

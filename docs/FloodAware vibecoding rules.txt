@@ -1,0 +1,103 @@
+Here are **"Vibe Coding Rules"** — a lightweight, opinionated guide for the AI and devs working on the *FloodAware GH* project. These rules keep your AI-driven development focused, clean, and aligned with real-world needs in Ghana.
+
+---
+
+## 🌍 **FloodAware GH — Vibe Coding Rules for AI Devs**
+
+---
+
+### 🧠 1. **Think Like the End-User First**
+
+* Assume **limited tech experience** — if it needs explaining, it needs redesigning.
+* Prioritize **speed and offline usability** over “cleverness.”
+* Only ask the user once. If AI can **auto-fill or infer**, do it.
+
+---
+
+### 🔐 2. **Privacy by Default**
+
+* Never store precise GPS unless it’s essential for risk analysis.
+* **Blur user identities** unless it’s admin-only.
+* Use unique IDs, not names or emails, in public/shared views.
+
+---
+
+### ⚙️ 3. **Fail Gracefully, Sync Quietly**
+
+* If it doesn’t sync, it must **queue and retry later** — no user effort required.
+* Auto-retries must back off gradually (5s → 10s → 20s).
+* If image fails to upload, **cache locally** and warn politely.
+
+---
+
+### 🌦 4. **Trust, But Verify**
+
+* AI predictions (flood risk) must show **source + confidence level** (e.g., “Based on 4 nearby tags and 85% rain forecast”).
+* Never act on **only one tag** — verify using at least 3 inputs (tag, weather, time).
+* Clearly mark anything AI-generated with a ⚠️ if not verified by a human.
+
+---
+
+### 🧪 5. **Modular, Not Monolithic**
+
+* Write AI modules in **discrete, testable chunks**:
+
+  * `calculateRiskScore()`
+  * `detectBadTagData()`
+  * `autoModerateFloodTag()`
+* If the model fails, the app still works with static defaults.
+
+---
+
+### 🚀 6. **Performance First, Pretty Later**
+
+* If loading time > 1.5 seconds on 3G — it's a bug.
+* Use background threads for:
+
+  * AI inferences
+  * API pulls
+  * Media uploads
+* Minimize dependencies; if it can be vanilla JS or native, prefer that.
+
+---
+
+### 🌱 7. **Design for Growth**
+
+* Build AI models that:
+
+  * Can be updated remotely
+  * Can use **new training data** from the field
+* Version every model and keep a `change_log.txt` for major updates.
+
+---
+
+### 📚 8. **Document in Plain English**
+
+* All AI/ML scripts should have:
+
+  * What it does
+  * What input it expects
+  * What output it gives
+* Comments should sound like you're **explaining to a junior Ghanaian dev**.
+
+---
+
+### 💬 9. **Respect Local Context**
+
+* Avoid false positives in flood predictions — **panic costs lives.**
+* Don’t rely only on foreign weather data — **weigh local tags** more heavily.
+* If unsure, **ask the user to verify** instead of assuming.
+
+---
+
+### 🧩 10. **Test Like It’s Real**
+
+* Simulate:
+
+  * No internet
+  * Low-end phones
+  * Partial data or photos
+* Every AI feature should be **manually overrideable** by a user or moderator.
+
+---
+

@@ -1,0 +1,124 @@
+Here’s a practical **Data Storage Structure** for your *FloodAware GH* app — optimized for mobile-first performance, offline capabilities, and scale in Ghana’s context.
+
+---
+
+## **Data Storage Structure for FloodAware GH**
+
+**Prepared by:** Derek Otchere Asamoah-Amoyaw
+**Date:** 2025-05-23
+**Version:** 1.0
+
+---
+
+### **1. Overview**
+
+FloodAware GH uses a **hybrid cloud + local model** to support offline data entry and real-time syncing. The primary storage backend is Firebase (Firestore), with encrypted local SQLite for offline usage.
+
+---
+
+### **2. High-Level Data Model (Collections / Tables)**
+
+#### A. `Users`
+
+| Field           | Type      | Description                       |
+| --------------- | --------- | --------------------------------- |
+| `userId`        | String    | Unique user identifier (UID)      |
+| `name`          | String    | Full name (optional)              |
+| `phone`         | String    | Phone number (or email)           |
+| `preferredLang` | String    | Language (e.g., "en", "tw", "ga") |
+| `location`      | GeoPoint  | Default/last known location       |
+| `createdAt`     | Timestamp | Date joined                       |
+| `role`          | String    | "user", "moderator", or "admin"   |
+
+---
+
+#### B. `FloodTags`
+
+| Field           | Type      | Description                                  |
+| --------------- | --------- | -------------------------------------------- |
+| `tagId`         | String    | Unique identifier                            |
+| `userId`        | String    | Link to `Users` table                        |
+| `location`      | GeoPoint  | GPS location of flood report                 |
+| `waterLevel`    | Int       | 0 = dry, 1 = ankle, 2 = knee … 5 = over head |
+| `photoURL`      | String    | Firebase storage URL of image                |
+| `comment`       | String    | Optional description                         |
+| `isVerified`    | Boolean   | Moderator-verified tag                       |
+| `createdAt`     | Timestamp | When the report was submitted                |
+| `deviceOffline` | Boolean   | True if uploaded after offline storage       |
+
+---
+
+#### C. `WeatherForecasts`
+
+| Field          | Type   | Description                       |
+| -------------- | ------ | --------------------------------- |
+| `district`     | String | District or town name             |
+| `forecastDate` | Date   | Forecasted date                   |
+| `rainMM`       | Float  | Predicted rain in millimeters     |
+| `riskScore`    | Int    | 0–100 flood likelihood            |
+| `source`       | String | API used (e.g., "WeatherChannel") |
+
+---
+
+#### D. `Alerts`
+
+| Field     | Type      | Description                           |
+| --------- | --------- | ------------------------------------- |
+| `alertId` | String    | Unique alert identifier               |
+| `userId`  | String    | Target user or "global" for all users |
+| `message` | String    | Alert message                         |
+| `type`    | String    | "rain-warning", "flood-risk", etc.    |
+| `sentAt`  | Timestamp | Time alert was sent                   |
+| `status`  | String    | "delivered", "read", "dismissed"      |
+
+---
+
+#### E. `TipsAndChecklists`
+
+| Field       | Type      | Description                                |
+| ----------- | --------- | ------------------------------------------ |
+| `tipId`     | String    | Unique tip/checklist ID                    |
+| `title`     | String    | Title of the checklist                     |
+| `body`      | Text      | Detailed steps or info                     |
+| `riskLevel` | Int       | Matches waterLevel: 1 = ankle … 5          |
+| `language`  | String    | Language of the tip                        |
+| `tags`      | \[String] | Categories (e.g., "cleanup", "evacuation") |
+
+---
+
+### **3. Offline Data Storage (SQLite on Mobile)**
+
+Locally mirrored tables:
+
+* `PendingFloodTags`
+* `UserSettings`
+* `CachedChecklists`
+* `SyncQueue`
+
+Sync is triggered when the app is back online:
+
+* Auto-send `PendingFloodTags`
+* Pull new checklists, alerts, and verified tags in user’s area
+
+---
+
+### **4. File Storage (Images & Media)**
+
+* **Service:** Firebase Storage (or S3)
+* Folder structure:
+
+  ```
+  /floodTags/userId/tagId/photo.jpg
+  /profilePhotos/userId.jpg
+  ```
+* Files are linked in `photoURL` fields in the main database
+
+---
+
+### **5. Security and Privacy Controls**
+
+* Data access enforced with Firebase Security Rules or API auth middleware
+* PII (phone/email) stored encrypted-at-rest
+* Only user’s own flood tags are visible to them by default (unless marked public)
+
+

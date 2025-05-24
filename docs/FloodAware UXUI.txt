@@ -1,0 +1,117 @@
+UX/UI Design Document
+Project: FloodAware GH
+Date: 2025-05-23
+Prepared by: [Terry]
+Version: 1.0
+
+1. Design Goals
+Make the app intuitive and easy to use even for people with low digital literacy.
+
+Prioritize clarity, speed, and accessibility on low-end Android phones.
+
+Promote trust and community engagement through clean visuals and minimal steps to submit data.
+
+2. User Personas
+a. Ama (Age 35, Trader in Accra)
+Needs: Simple way to report flood levels and receive safety tips.
+
+Device: Basic Android phone.
+
+Literacy: Medium, prefers Twi or Ga.
+
+b. Yaw (Age 22, Student in Kumasi)
+Needs: Wants to contribute to community safety and view nearby flood risks.
+
+Device: Modern smartphone.
+
+Literacy: High, fluent in English.
+
+3. User Journey Maps
+a. Reporting a Flood
+Open app → tap “Tag Flood Area”
+
+App captures GPS location
+
+User selects water level (slider or AR overlay)
+
+Optionally upload a photo and comment
+
+Tap Submit
+
+b. Receiving an Alert
+Push notification: “Rain forecasted, flood risk high in your area.”
+
+Open app → view Preparation Tips or Map
+
+Follow action checklist
+
+4. Screens and Wireframes (Text-Based)
+(Can be converted into Figma or Adobe XD visuals)
+
+a. Home Screen
+ Tag Flood Area
+
+ View Flood Map
+
+ My Area Alerts
+
+ Safety Tips
+
+b. Tag Flood Area Screen
+Google Map with location pin
+
+Water level input:
+
+Visual slider with body height icons (ankle, knee, waist, chest, head)
+
+AR view (optional)
+
+Photo upload
+
+Add comment (optional)
+
+[Submit] button
+
+c. Flood Map
+Heatmap overlay (red, yellow, green)
+
+Filter by:
+
+Last 7 days
+
+Verified/Unverified tags
+
+My area only
+
+d. Alert Center
+List of past alerts
+
+Current risk: HIGH / MODERATE / LOW
+
+Upcoming rain predictions (from Weather API)
+
+e. Preparation Checklist
+“Things to do before it rains” list
+
+Tips customized to water depth tags
+
+Buttons: [Share] [Mark as Done]
+
+5. Design Considerations
+Color palette: Green (safe), Yellow (caution), Red (danger)
+
+Font: Noto Sans for readability on all devices
+
+Languages: English, Akan (Twi), Ewe, Ga, Hausa
+
+Accessibility: Large icons, offline mode, voice input (future version)
+
+6. Tools & Deliverables
+Wireframes: Figma link or PDF version
+
+Icons/Illustrations: PNG/SVG format
+
+Prototype: Interactive clickable prototype (Figma or InVision)
+
+Style Guide: Fonts, spacing, icon rules
+
